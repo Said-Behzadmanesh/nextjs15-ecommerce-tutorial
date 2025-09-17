@@ -26,4 +26,31 @@ export const mockProducts: Product[] = [
         image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
         category: "Electronics",
     },
+    {
+        id: "3",
+        name: "Running Shoes",
+        description:
+            "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+        price: 89.99,
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+        category: "sports",
+    },
+    {
+        id: "4",
+        name: "Ceramic Mug",
+        description:
+            "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+        price: 24.99,
+        image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d",
+        category: "Home",
+    },
+    {
+        id: "5",
+        name: "Leather Backpack",
+        description:
+            "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+        price: 88.99,
+        image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7",
+        category: "Fashion",
+    },
 ];
