@@ -37,7 +37,8 @@ export async function main() {
             description:
                 "Premium noise-cancelling wireless headphones with long battery life.",
             price: 199.99,
-            image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+            // image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+            image: "/images/photo-1.jpg",
             categoryId: electronics.id,
             slug: "wireless-headphones",
         },
@@ -47,7 +48,8 @@ export async function main() {
             description:
                 "Fitness tracker with heart rate monitoring and sleep analysis.",
             price: 149.99,
-            image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+            // image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+            image: "/images/photo-2.jpg",
             categoryId: electronics.id,
             slug: "smart-watch",
         },
@@ -57,7 +59,8 @@ export async function main() {
             description:
                 "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
             price: 89.99,
-            image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+            // image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+            image: "/images/photo-3.jpg",
             categoryId: clothing.id,
             slug: "running-shoes",
         },
@@ -67,7 +70,8 @@ export async function main() {
             description:
                 "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
             price: 24.99,
-            image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d",
+            // image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d",
+            image: "/images/photo-4.jpg",
             categoryId: home.id,
             slug: "ceramic-mug",
         },
@@ -77,7 +81,8 @@ export async function main() {
             description:
                 "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
             price: 88.99,
-            image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7",
+            // image: "https://images.unsplash.com/photo-1491637639811-60e2756cc1c7",
+            image: "/images/photo-5.jpg",
             categoryId: clothing.id,
             slug: "leather-backpack",
         },
