@@ -41,6 +41,7 @@ export async function main() {
             image: "/images/photo-1.jpg",
             categoryId: electronics.id,
             slug: "wireless-headphones",
+            inventory: 15
         },
         {
             id: "2",
@@ -52,6 +53,7 @@ export async function main() {
             image: "/images/photo-2.jpg",
             categoryId: electronics.id,
             slug: "smart-watch",
+            inventory: 10
         },
         {
             id: "3",
@@ -63,6 +65,7 @@ export async function main() {
             image: "/images/photo-3.jpg",
             categoryId: clothing.id,
             slug: "running-shoes",
+            inventory: 5
         },
         {
             id: "4",
@@ -74,6 +77,7 @@ export async function main() {
             image: "/images/photo-4.jpg",
             categoryId: home.id,
             slug: "ceramic-mug",
+            inventory: 0
         },
         {
             id: "5",
@@ -85,6 +89,7 @@ export async function main() {
             image: "/images/photo-5.jpg",
             categoryId: clothing.id,
             slug: "leather-backpack",
+            inventory: 1
         },
     ];
 

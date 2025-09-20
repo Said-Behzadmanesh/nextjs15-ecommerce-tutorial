@@ -10,6 +10,7 @@ import ProductCard from "./ProductCard";
 import { prisma } from "@/lib/prisma";
 import { Suspense } from "react";
 import ProductsSkeleton from "./ProductsSkeleton";
+// import { getProductBySlug } from "@/lib/actions";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 const pageSize = 3;
@@ -21,8 +22,6 @@ async function Products({ page }: { page: number }) {
     skip,
     take: pageSize,
   });
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -36,6 +35,8 @@ async function Products({ page }: { page: number }) {
 export default async function HomePage(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
   const page = Number(searchParams.page) || 1;
+
+  // console.log(await getProductBySlug("smart-watch"));
 
   const total = await prisma.product.count();
   const totalPages = Math.ceil(total / pageSize);

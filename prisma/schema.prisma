@@ -15,14 +15,15 @@ datasource db {
 }
 
 model Product {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
   price       Float
   image       String?
-  slug        String @unique
+  slug        String   @unique
   category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  String
+  categoryId  String  
+  inventory   Int      @default(0) 
 }
 
 model Category {
