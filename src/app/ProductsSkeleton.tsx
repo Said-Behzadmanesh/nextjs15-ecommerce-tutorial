@@ -1,4 +1,4 @@
-import ProductCardSkeleton from "./ProductCardSkeleton";
+import { ProductCardSkeleton } from "./ProductCardSkeleton";
 
 export default function ProductsSkeleton() {
   return (

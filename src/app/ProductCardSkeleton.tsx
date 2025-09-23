@@ -1,7 +1,7 @@
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const ProductCardSkeleton = () => {
+export function ProductCardSkeleton() {
   return (
     <Card className="pt-0 overflow-hidden">
       <div className="relative aspect-video">
@@ -19,6 +19,4 @@ const ProductCardSkeleton = () => {
       </CardFooter>
     </Card>
   );
-};
-
-export default ProductCardSkeleton;
+}
