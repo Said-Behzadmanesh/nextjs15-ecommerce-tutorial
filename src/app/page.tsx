@@ -10,14 +10,19 @@ import ProductCard from "./ProductCard";
 import prisma from "@/lib/prisma";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+type HomePageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 const pageSize = 3;
 
 // Cleaned up props signature
-export default async function HomePage(props: { searchParams: SearchParams }) {
+export default async function HomePage({
+  searchParams: searchParamsPromise,
+}: HomePageProps) {
   // Accessing searchParams makes this page dynamic, which is correct.
-  const searchParams = await props.searchParams;
-  const page = Number(searchParams.page) || 1;
+
+  const searchParams = await searchParamsPromise;
+  const page = Number(searchParams?.page) || 1;
   const skip = (page - 1) * pageSize;
 
   // This is the correct, efficient way to fetch data in parallel.

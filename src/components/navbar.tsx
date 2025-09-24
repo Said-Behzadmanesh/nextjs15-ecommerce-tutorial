@@ -1,24 +1,25 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Search, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./mobile-nav";
+import { SearchInput } from "./search-input";
 
 export const categories = [
   {
     id: 1,
     name: "Electronics",
-    href: "/category/electronics",
+    href: "/search/electronics",
   },
   {
     id: 2,
-    name: "Fashion",
-    href: "/category/fashion",
+    name: "Clothing",
+    href: "/search/fashion",
   },
   {
     id: 3,
     name: "Home",
-    href: "/category/home",
+    href: "/search/home",
   },
 ];
 
@@ -42,16 +43,13 @@ export default function Navbar() {
                 </Link>
               ))}
             </nav>
-            {/* Mobile Nav */}
             <MobileNav />
           </div>
         </div>
+        <div className="block w-full mx-4 md:mx-8">
+          <SearchInput />
+        </div>
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/search">
-              <Search className="w-5 h-5" />
-            </Link>
-          </Button>
           <Button variant="ghost" size="icon" asChild>
             <Link href="/cart">
               <ShoppingCart className="w-5 h-5" />

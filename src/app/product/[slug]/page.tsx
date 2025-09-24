@@ -4,17 +4,32 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getProductBySlug } from "@/lib/actions";
-import { formatPrice, sleep } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import prisma from "@/lib/prisma";
+
+// --- FIX #1: Add generateStaticParams to pre-build all product pages ---
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany({
+    select: {
+      slug: true,
+    },
+  });
+
+  return products.map((product) => ({
+    slug: product.slug,
+  }));
+}
+// --- END OF FIX #1 ---
 
 export async function generateMetadata({
-  params,
+  params: paramsPromise,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug } = await paramsPromise;
   const product = await getProductBySlug(slug);
 
   if (!product) {
@@ -37,11 +52,11 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({
-  params,
+  params: paramsPromise,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug } = await paramsPromise;
   const product = await getProductBySlug(slug);
 
   if (!product) {
@@ -57,7 +72,7 @@ export default async function ProductPage({
     },
     {
       label: product.category?.name,
-      href: `/category/${product.category?.slug}`,
+      href: `/search/${product.category?.slug}`,
     },
     {
       label: product.name,
