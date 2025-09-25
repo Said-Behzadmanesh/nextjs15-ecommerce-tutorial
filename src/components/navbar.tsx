@@ -4,6 +4,7 @@ import { ShoppingCart } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./mobile-nav";
 import { SearchInput } from "./search-input";
+import { CartIndicator } from "./cart-indicator";
 
 export const categories = [
   {
@@ -49,12 +50,8 @@ export default function Navbar() {
         <div className="block w-full mx-4 md:mx-8">
           <SearchInput />
         </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/cart">
-              <ShoppingCart className="w-5 h-5" />
-            </Link>
-          </Button>
+        <div className="flex items-center gap-0">
+          <CartIndicator />
           <ModeToggle />
         </div>
       </div>
