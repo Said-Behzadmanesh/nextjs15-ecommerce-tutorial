@@ -108,6 +108,8 @@ async function findCartFromCookie(): Promise<CartWithProducts | null> {
     }, [`cart-${cartId}`], { tags: [`cart-${cartId}`] })(cartId);
 }
 
+export type CartItemWithProduct = Prisma.CartItemGetPayload<{ include: { product: true } }>;
+
 export async function getCart(): Promise<ShoppingCart | null> {
 
     const cart = await findCartFromCookie();
@@ -180,4 +182,44 @@ export async function addToCart(productId: string, quantity: number = 1) {
     }
 
     revalidateTag(`cart-${cart.id}`);
+}
+
+export async function setProductQuantity(productId: string, quantity: number) {
+    if (quantity < 0) {
+        throw new Error("Quantity must be at least 0");
+    }
+
+    const cart = await findCartFromCookie();
+
+    if (!cart) {
+        throw new Error("Cart not found");
+    }
+
+    // TODO: make sure the product inventory is not exceeded
+
+    try {
+        if (quantity === 0) {
+            await prisma.cartItem.deleteMany({
+                where: {
+                    cartId: cart.id,
+                    productId,
+                },
+            });
+        } else {
+            await prisma.cartItem.updateMany({
+                where: {
+                    cartId: cart.id,
+                    productId,
+                },
+                data: {
+                    quantity,
+                },
+            });
+        }
+        revalidateTag(`cart-${cart.id}`);
+    } catch (error) {
+        console.error("Error setting product quantity:", error);
+        throw new Error("Error updating cart item quantity");
+    }
+
 }

@@ -8,7 +8,7 @@ export async function CartIndicatorSkeleton() {
       variant="ghost"
       size="icon"
       asChild
-      className="relative opacity-50"
+      className="relative animate-pulse"
       disabled
     >
       <Link href="/cart">

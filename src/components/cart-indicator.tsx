@@ -8,7 +8,7 @@ export async function CartIndicator() {
   const cart = await getCart();
   const cartSize = cart?.size ?? 0;
 
-  await sleep(3000);
+  // await sleep(5000);
 
   return (
     <Button variant="ghost" size="icon" asChild className="relative">
