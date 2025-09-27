@@ -93,6 +93,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ProductListServerWrapper } from "@/components/ProductListServerWrapper";
 // import { getProductsCountCached } from "@/lib/actions";
 import prisma from "@/lib/prisma";
+import { stripe } from "@/lib/stripe";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -104,6 +105,8 @@ export default async function HomePage(props: { searchParams: SearchParams }) {
 
   const total = await prisma.product.count();
   const totalPages = Math.ceil(total / pageSize);
+
+  console.log(await stripe.events.list({ limit: 1 }));
 
   return (
     <main className="container mx-auto py-4">

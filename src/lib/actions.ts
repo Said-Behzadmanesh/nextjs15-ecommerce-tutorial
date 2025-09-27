@@ -3,7 +3,7 @@
 import prisma from '@/lib/prisma';
 import { Prisma } from "@/generated/prisma";
 import { cookies } from 'next/headers';
-import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
+import { revalidateTag, unstable_cache } from 'next/cache';
 
 
 export interface GetProductsParams {
@@ -101,6 +101,9 @@ async function findCartFromCookie(): Promise<CartWithProducts | null> {
                 items: {
                     include: {
                         product: true,
+                    },
+                    orderBy: {
+                        createdAt: "desc",
                     },
                 },
             },
