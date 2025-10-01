@@ -1,12 +1,23 @@
-import { PrismaClient, Product } from "../src/generated/prisma";
+import { hashPassword } from "@/lib/auth";
+import { PrismaClient, Product, User } from "../src/generated/prisma";
 
 const prisma = new PrismaClient();
 
-
-
 export async function main() {
-    await prisma.product.deleteMany();
+    console.log('Seeding database...');
+
+    // 1. Clear existing data in the correct order to avoid foreign key constraints
+    console.log('Deleting existing data...');
+    await prisma.orderItem.deleteMany({});
+    await prisma.cartItem.deleteMany({});
+    await prisma.order.deleteMany({});
+    await prisma.cart.deleteMany({});
+    // Now it's safe to delete products because no OrderItems or CartItems refer to them
+    await prisma.product.deleteMany({});
+    console.log('Existing data deleted.');
+    // await prisma.product.deleteMany();
     await prisma.category.deleteMany();
+    await prisma.user.deleteMany();
 
     const electronics = await prisma.category.create({
         data: {
@@ -98,6 +109,48 @@ export async function main() {
             data: product,
         });
     }
+
+    const users: User[] = [
+        {
+            id: "1",
+            email: "admin@example.com",
+            password: "password123",
+            name: "Admin user",
+            role: "admin",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        },
+        {
+            id: "2",
+            email: "user@example.com",
+            password: "password456",
+            name: "Normal user",
+            role: "user",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        },
+    ];
+
+    for (const user of users) {
+        const hashedPassword = await hashPassword(user.password);
+        await prisma.user.create({
+            data: {
+                ...user,
+                password: hashedPassword
+            }
+        });
+    }
+
+    console.log("Users created.");
 }
 
-main();
+main()
+    .then(async () => {
+        console.log("Seeding finished.");
+        await prisma.$disconnect();
+    })
+    .catch(async (e) => {
+        console.error(e);
+        await prisma.$disconnect();
+        process.exit(1);
+    });
