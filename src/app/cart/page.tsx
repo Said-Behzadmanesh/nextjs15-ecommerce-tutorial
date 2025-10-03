@@ -36,7 +36,7 @@ export default async function CartPage() {
         <>
           <div className="flex flex-col">
             {cart.items.map((item) => (
-              <CartEntry key={item.id} cartItem={item} cartId={cart.id} />
+              <CartEntry key={item.id} cartItem={item} />
             ))}
           </div>
           <CartSummary />

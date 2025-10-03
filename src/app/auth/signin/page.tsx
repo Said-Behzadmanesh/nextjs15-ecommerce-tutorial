@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,12 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema, LoginSchemaType } from "@/lib/schemas";
 import {
   Form,
   FormControl,
@@ -22,13 +15,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-// import { signIn } from "@/lib/auth";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { set } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginSchema, LoginSchemaType } from "@/lib/schemas";
+import { signIn, useSession } from "next-auth/react";
+import { use, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
+  // const { data: session, update: updateSession } = useSession();
+  const { update: updateSession } = useSession();
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
@@ -37,6 +37,8 @@ export default function SignInPage() {
       password: "",
     },
   });
+
+  const router = useRouter();
 
   const onSubmit = async (data: LoginSchemaType) => {
     setError(null);
@@ -53,6 +55,9 @@ export default function SignInPage() {
         } else {
           setError("An error occurred while signing in");
         }
+      } else {
+        await updateSession();
+        router.push("/");
       }
     } catch (error) {
       console.error("A Signin error", error);
@@ -109,7 +114,12 @@ export default function SignInPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
+              {/* {session?.user && <pre>{JSON.stringify(session, null, 2)}</pre>} */}
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={form.formState.isSubmitting}
+              >
                 Sign In
               </Button>
             </form>

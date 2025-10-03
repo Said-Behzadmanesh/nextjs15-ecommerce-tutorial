@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import { getCart } from "./actions";
 import { cookies } from 'next/headers';
 import { createCheckoutSession, OrderWithItemsAndProduct } from './stripe';
+import { auth } from './auth';
 
 export type ProcessCheckoutResponse = {
     sessionUrl: string;
@@ -12,7 +13,7 @@ export type ProcessCheckoutResponse = {
 
 export async function processCheckout(): Promise<ProcessCheckoutResponse> {
 
-    // TODO: these processes should be atomic
+    // these processes should be atomic
     // 1. calculate total price
     // 2. create order
     // 3. create OrderItem
@@ -21,6 +22,8 @@ export async function processCheckout(): Promise<ProcessCheckoutResponse> {
     // 6. return the order
 
     const cart = await getCart();
+    const session = await auth();
+    const userId = session?.user?.id;
 
     if (!cart || cart.items.length === 0) {
         throw new Error("Cart not empty");
@@ -34,6 +37,7 @@ export async function processCheckout(): Promise<ProcessCheckoutResponse> {
             const newOrder = await tx.order.create({
                 data: {
                     total,
+                    userId: userId || null,
                 },
             });
 

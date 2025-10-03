@@ -106,7 +106,7 @@ export default async function HomePage(props: { searchParams: SearchParams }) {
   const total = await prisma.product.count();
   const totalPages = Math.ceil(total / pageSize);
 
-  console.log(await stripe.events.list({ limit: 1 }));
+  // console.log(await stripe.events.list({ limit: 1 }));
 
   return (
     <main className="container mx-auto py-4">

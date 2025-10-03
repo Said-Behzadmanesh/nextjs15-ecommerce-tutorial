@@ -9,10 +9,9 @@ import { useState } from "react";
 
 interface CartEntryProps {
   cartItem: CartItemWithProduct;
-  cartId: string;
 }
 
-export default function CartEntry({ cartItem, cartId }: CartEntryProps) {
+export default function CartEntry({ cartItem }: CartEntryProps) {
   const [isloading, setIsLoading] = useState(false);
 
   const handleSetProductQuantity = async (quantity: number) => {
